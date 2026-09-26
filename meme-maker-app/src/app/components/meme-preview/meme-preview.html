@@ -1,0 +1,42 @@
+<mat-card 
+  appearance="outlined" 
+  class="result-card" 
+  [class.has-result]="createdMeme() && !isLoading()"
+>
+  <mat-card-header>
+    <mat-card-title>
+      @if (createdMeme() && !isLoading()) {
+        {{ 'memeSuccessfullyGenerated' | transloco }}
+      } @else if (isLoading()) {
+        {{ 'generating' | transloco }}
+      } @else {
+        {{ 'previewMeme' | transloco }}
+      }
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="result-body">
+    @if (isLoading()) {
+      <div class="state-container">
+        <mat-spinner diameter="48"></mat-spinner>
+        <p>{{ 'yourMemeIsCreated' | transloco }}</p>
+      </div>
+    } @else if (createdMeme(); as meme) {
+      <img [src]="meme.url" [alt]="'generatedMeme' | transloco" class="meme-image">
+    } @else {
+      <div class="state-container placeholder">
+        <mat-icon class="placeholder-icon">image</mat-icon>
+        <p>{{ 'pressGenerateMeme' | transloco }}</p>
+      </div>
+    }
+  </mat-card-content>
+
+  @if (createdMeme() && !isLoading()) {
+    <mat-card-actions align="end">
+      <a mat-stroked-button color="accent" [href]="createdMeme()?.page_url" target="_blank" rel="noopener noreferrer">
+        <mat-icon>open_in_new</mat-icon>
+        <span>{{ 'openThePage' | transloco }}</span>
+      </a>
+    </mat-card-actions>
+  }
+</mat-card>

@@ -1,0 +1,26 @@
+<li>
+  <mat-card class="meme-card" appearance="outlined">
+    
+    <mat-card-header>
+      <mat-card-title class="titlu-limitat">{{ memeData().name }}</mat-card-title>
+      <mat-card-subtitle>
+        <mat-chip-set>
+          <mat-chip>{{ 'boxes' | transloco }}: {{ memeData().box_count }}</mat-chip>
+        </mat-chip-set>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <div class="card-image-wrapper">
+      <img mat-card-image [src]="memeData().url" [alt]="memeData().name"
+        [width]="memeData().width" [height]="memeData().height"
+      >
+    </div>
+
+    <mat-card-actions align="end">
+      <button mat-flat-button color="primary" (click)="onSelect()">
+        {{ 'select' | transloco }}
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+</li>

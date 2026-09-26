@@ -1,0 +1,29 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav autoFocus="false">
+    <h1>{{ 'pages' | transloco }}</h1>
+    <mat-nav-list>
+      @for (menuItem of menuItems; track menuItem.title){
+        <a mat-list-item [routerLink]="menuItem.route" (click)="sidenav.close()">
+          <mat-icon matListItemIcon>{{ menuItem.icon }}</mat-icon>
+          <span matListItemTitle>{{ menuItem.title | transloco }}</span>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="fixed-toolbar" color="primary">
+      <div class="left">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>{{ 'memeMakerApp' | transloco }}</span>
+      </div>
+      <app-change-language></app-change-language>
+    </mat-toolbar>
+
+    <main class="main-content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

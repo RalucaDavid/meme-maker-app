@@ -1,0 +1,44 @@
+.editor-container {
+  max-width: 1000px;
+  margin: 16px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.warning-card {
+  width: 100%;
+  padding: 24px;
+  text-align: center;
+  border-radius: 16px !important;
+
+  .warning-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    .warning-icon {
+      font-size: 56px;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    p {
+      margin: 0;
+      color: #666;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+  }
+}

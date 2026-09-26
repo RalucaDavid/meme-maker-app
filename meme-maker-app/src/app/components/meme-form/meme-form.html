@@ -1,0 +1,89 @@
+<mat-card appearance="outlined" class="editor-card">
+  <mat-card-header>
+    <mat-card-title>{{ 'editMeme' | transloco }}</mat-card-title>
+    <img [src]="currentMeme().url" alt="Meme Template" class="meme-image">
+    <mat-card-subtitle>{{ 'fillTexts' | transloco }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="card-body">
+    <form [formGroup]="memeForm" (ngSubmit)="onSubmit()" class="meme-form">
+      
+      <mat-tab-group 
+        [selectedIndex]="selectedTabIndex()" 
+        (selectedIndexChange)="selectedTabIndex.set($event)"
+        mat-stretch-tabs="false"
+      >
+      
+        <mat-tab [label]="'simpleMode' | transloco">
+          <div class="tab-content">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ 'firstText' | transloco }}</mat-label>
+              <input matInput formControlName="firstText" [placeholder]="'firstTextExample' | transloco">
+              @if (memeForm.get('firstText')?.hasError('required') && memeForm.get('firstText')?.touched) {
+                <mat-error>{{ 'firstTextIsMandatory' | transloco }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ 'secondText' | transloco }}</mat-label>
+              <input matInput formControlName="secondText" [placeholder]="'secondTextExample' | transloco">
+              @if (memeForm.get('secondText')?.hasError('required') && memeForm.get('secondText')?.touched) {
+                <mat-error>{{ 'secondTextIsMandatory' | transloco }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </mat-tab>
+
+        <mat-tab [label]="('advancedBoxes' | transloco) + ' (' + currentMeme().box_count + ')'">
+          <div class="tab-content" formArrayName="boxes">
+            @for (group of boxesArray.controls; track $index) {
+              <div [formGroupName]="$index" class="box-row">
+                
+                <mat-form-field appearance="outline" class="text-input">
+                  <mat-label>{{ 'text' | transloco }} #{{ $index + 1 }}</mat-label>
+                  <input 
+                    matInput 
+                    formControlName="text" 
+                    [placeholder]="('textExample' | transloco) + ' ' + ($index + 1)"
+                  >
+                  @if (group.get('text')?.hasError('required') && group.get('text')?.touched) {
+                    <mat-error>{{ 'textIsMandatory' | transloco }}</mat-error>
+                  }
+                </mat-form-field>
+
+                <div class="color-pickers">
+                  <label class="color-picker-item" title="Text Color">
+                    <span class="color-label">{{ 'text' | transloco }}</span>
+                    <input type="color" formControlName="color" class="color-input">
+                  </label>
+
+                  <label class="color-picker-item" title="Border / Outline Color">
+                    <span class="color-label">{{ 'border' | transloco }}</span>
+                    <input type="color" formControlName="outline_color" class="color-input">
+                  </label>
+                </div>
+
+              </div>
+            }
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+      <div class="actions">
+        <button 
+          mat-flat-button 
+          color="primary" 
+          type="submit" 
+          [disabled]="isLoading()"
+        >
+          @if (isLoading()) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            <span>{{ 'generateMeme' | transloco }}</span>
+          }
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

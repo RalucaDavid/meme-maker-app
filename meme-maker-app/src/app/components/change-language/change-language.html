@@ -1,0 +1,9 @@
+<mat-form-field appearance="outline" subscriptSizing="dynamic" class="lang-select-field">
+  <mat-select (selectionChange)="onLanguageChange($event.value)" value="en">
+    @for (lang of languages; track lang.code) {
+      <mat-option [value]="lang.code">
+        {{ lang.name }}
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

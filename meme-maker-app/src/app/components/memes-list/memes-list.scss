@@ -1,0 +1,47 @@
+.meme-list-wrapper {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.meme-grid-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.empty-state-card {
+  grid-column: 1 / -1;
+  max-width: 450px;
+  margin: 40px auto;
+  text-align: center;
+  padding: 32px;
+  border-radius: 8px;
+}
+
+.empty-state-card mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.empty-state-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.empty-state-card p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
