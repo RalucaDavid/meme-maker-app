@@ -1,0 +1,20 @@
+<div class="search-field">
+  <mat-icon aria-hidden="true">search</mat-icon>
+  <input
+    type="search"
+    [value]="value()"
+    [placeholder]="'searchTemplates' | transloco"
+    [attr.aria-label]="'searchTemplates' | transloco"
+    (input)="onInput($event)"
+  />
+  @if (value()) {
+    <button
+      type="button"
+      class="clear-search"
+      (click)="clear()"
+      [attr.aria-label]="'clearSearch' | transloco"
+    >
+      <mat-icon aria-hidden="true">close</mat-icon>
+    </button>
+  }
+</div>

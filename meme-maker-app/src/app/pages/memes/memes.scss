@@ -1,6 +1,15 @@
 .page-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .page-wrapper h1 {
+    font-size: 24px;
+    text-align: center;
+  }
 }

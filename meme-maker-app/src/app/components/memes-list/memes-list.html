@@ -1,25 +1,30 @@
 <div class="meme-list-wrapper">
+  <app-search-field [value]="searchTerm()" (valueChange)="onSearch($event)" />
+
   <div class="meme-grid-list">
     @for (meme of displayedMemes(); track meme.id) {
       <app-meme [memeData]="meme"></app-meme>
     } @empty {
       <mat-card class="empty-state-card" appearance="outlined">
         <mat-card-content>
-          <mat-icon color="primary">photo_library</mat-icon>
-          <h3>{{ 'noMemesAvailable' | transloco }}</h3>
-          <p>{{ 'checkYourInternetConnection' | transloco }}</p>
+          <mat-icon color="primary">{{ searchTerm() ? 'search_off' : 'photo_library' }}</mat-icon>
+          <h3>{{ (searchTerm() ? 'noTemplatesFound' : 'noMemesAvailable') | transloco }}</h3>
+          @if (!searchTerm()) {
+            <p>{{ 'checkYourInternetConnection' | transloco }}</p>
+          }
         </mat-card-content>
       </mat-card>
     }
   </div>
 
-  @if (allMemes().length > 0) {
+  @if (filteredMemes().length > 0) {
     <mat-paginator
-      [length]="allMemes().length"
+      [length]="filteredMemes().length"
       [pageSize]="pageSize()"
       [pageIndex]="pageIndex()"
       [pageSizeOptions]="[4, 8, 20, 48]"
-      (page)="onPageChange($event)">
+      (page)="onPageChange($event)"
+    >
     </mat-paginator>
   }
 </div>

@@ -1,15 +1,17 @@
 .meme-list-wrapper {
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
   max-width: 1400px;
   margin: 0 auto;
+  gap: 16px;
 }
 
 .meme-grid-list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  align-items: stretch;
   gap: 20px;
-  flex-wrap: wrap;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -44,4 +46,11 @@
   margin: 0;
   color: #666;
   font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .meme-list-wrapper {
+    padding: 12px;
+    gap: 12px;
+  }
 }
