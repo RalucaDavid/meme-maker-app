@@ -1,6 +1,6 @@
-<mat-card 
-  appearance="outlined" 
-  class="result-card" 
+<mat-card
+  appearance="outlined"
+  class="result-card"
   [class.has-result]="createdMeme() && !isLoading()"
 >
   <mat-card-header>
@@ -22,7 +22,7 @@
         <p>{{ 'yourMemeIsCreated' | transloco }}</p>
       </div>
     } @else if (createdMeme(); as meme) {
-      <img [src]="meme.url" [alt]="'generatedMeme' | transloco" class="meme-image">
+      <img [src]="meme.url" [alt]="'generatedMeme' | transloco" class="meme-image" />
     } @else {
       <div class="state-container placeholder">
         <mat-icon class="placeholder-icon">image</mat-icon>
@@ -32,8 +32,18 @@
   </mat-card-content>
 
   @if (createdMeme() && !isLoading()) {
-    <mat-card-actions align="end">
-      <a mat-stroked-button color="accent" [href]="createdMeme()?.page_url" target="_blank" rel="noopener noreferrer">
+    <mat-card-actions>
+      <button mat-flat-button color="primary" (click)="downloadMeme()" [disabled]="isDownloading()">
+        <mat-icon>download</mat-icon>
+        <span>{{ (isDownloading() ? 'downloadingMeme' : 'downloadMeme') | transloco }}</span>
+      </button>
+      <a
+        mat-stroked-button
+        color="accent"
+        [href]="createdMeme()?.page_url"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <mat-icon>open_in_new</mat-icon>
         <span>{{ 'openThePage' | transloco }}</span>
       </a>
