@@ -1,15 +1,24 @@
 .editor-container {
-  max-width: 1000px;
+  width: 100%;
+  max-width: 1200px;
   margin: 16px auto;
-  padding: 0 16px;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   align-items: stretch;
 }
 
+.editor-container > app-meme-form,
+.editor-container > app-meme-preview {
+  min-width: 0;
+}
+
 .warning-card {
+  grid-column: 1 / -1;
+  justify-self: center;
   width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
   padding: 24px;
   text-align: center;
   border-radius: 16px !important;
@@ -40,5 +49,12 @@
       font-size: 15px;
       line-height: 1.5;
     }
+  }
+}
+
+@media (max-width: 800px) {
+  .editor-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
   }
 }
