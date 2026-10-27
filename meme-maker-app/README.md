@@ -1,59 +1,69 @@
-# MemeMakerApp
+# Meme Maker App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.4.
+An Angular app for creating memes from popular templates using the [Imgflip API](https://imgflip.com/api).
 
-## Development server
+Browse the most popular meme templates, pick one, add your text and download the result.
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+- **Template gallery** – loads the top meme templates from Imgflip, shown as cards with the number of text boxes each template supports.
+- **Search & pagination** – filter templates by name and browse them page by page.
+- **Meme editor** – a form that adapts to the selected template's number of text boxes.
+- **Live result** – preview the generated meme, download it or open it on Imgflip.
+- **Multi-language** – English and Romanian, switchable at runtime (Transloco).
+- **Responsive UI** – built with Angular Material, works on desktop and mobile.
+- **Error handling** – HTTP errors are caught by an interceptor and shown as notifications.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tech stack
 
-## Code scaffolding
+- [Angular 22](https://angular.dev) (standalone components, signals, lazy-loaded routes)
+- [Angular Material](https://material.angular.dev)
+- [Transloco](https://jsverse.gitbook.io/transloco) for i18n
+- [RxJS](https://rxjs.dev)
+- [Vitest](https://vitest.dev) for unit tests
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Getting started
 
-```bash
-ng generate component component-name
-```
+### Prerequisites
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Node.js (a version supported by Angular 22)
+- npm
+- A free [Imgflip account](https://imgflip.com/signup) (needed for generating memes)
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Installation
 
 ```bash
-ng test
+git clone https://github.com/RalucaDavid/meme-maker-app.git
+cd meme-maker-app/meme-maker-app
+npm install
 ```
 
-## Running end-to-end tests
+### Configure the environment
 
-For end-to-end (e2e) testing, run:
+The environment files with credentials are not committed. Create them from the example:
 
 ```bash
-ng e2e
+cp src/environments/environment.example.ts src/environments/environment.ts
+cp src/environments/environment.example.ts src/environments/environment.development.ts
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Then fill in your Imgflip credentials:
 
-## Additional Resources
+```ts
+export const environment = {
+  production: false, // set to true in environment.ts
+  baseUrl: 'https://api.imgflip.com',
+  imgflipUsername: 'YOUR_USERNAME_IMGFLIP',
+  imgflipPassword: 'YOUR_PASSWORD_IMGFLIP',
+};
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+> **Note:** the credentials are added to Imgflip requests by `imgflipInterceptor` on the client, so they end up in the built JavaScript. Use a dedicated Imgflip account, not one you care about.
+
+### Run
+
+```bash
+npm start
+```
+
+Open [http://localhost:4200](http://localhost:4200).
