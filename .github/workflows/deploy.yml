@@ -28,6 +28,27 @@ jobs:
           cache: npm
           cache-dependency-path: meme-maker-app/package-lock.json
       - run: npm ci
+      - name: Generate environment file
+        env:
+          IMGFLIP_USERNAME: ${{ secrets.IMGFLIP_USERNAME }}
+          IMGFLIP_PASSWORD: ${{ secrets.IMGFLIP_PASSWORD }}
+        run: |
+          if [ -z "$IMGFLIP_USERNAME" ] || [ -z "$IMGFLIP_PASSWORD" ]; then
+            echo "::error::Missing IMGFLIP_USERNAME or IMGFLIP_PASSWORD repository secret"
+            exit 1
+          fi
+          node -e '
+            const env = {
+              production: true,
+              baseUrl: "https://api.imgflip.com",
+              imgflipUsername: process.env.IMGFLIP_USERNAME,
+              imgflipPassword: process.env.IMGFLIP_PASSWORD
+            };
+            require("fs").writeFileSync(
+              "src/environments/environment.ts",
+              `export const environment = ${JSON.stringify(env, null, 4)};\n`
+            );
+          '
       - run: npx ng build --base-href /meme-maker-app/
       - run: cp dist/meme-maker-app/browser/index.html dist/meme-maker-app/browser/404.html
       - uses: actions/upload-pages-artifact@v3
